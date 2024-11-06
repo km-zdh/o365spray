@@ -38,7 +38,7 @@ class SprayModule_rst(SprayerBase):
             # Write the tested user
             tested = f"{email}:{password}"
             if self.writer:
-                self.tested_writer.write(tested)
+                self.tested_writer.write_verbose(tested)
 
             time.sleep(0.250)
 

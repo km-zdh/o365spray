@@ -6,6 +6,7 @@ import time
 from datetime import (
     datetime,
     timedelta,
+    UTC,
 )
 from uuid import uuid4
 
@@ -43,7 +44,7 @@ class SprayModule_autologon(SprayerBase):
             # Write the tested user
             tested = f"{email}:{password}"
             if self.writer:
-                self.tested_writer.write(tested)
+                self.tested_writer.write_verbose(tested)
 
             time.sleep(0.250)
 
@@ -61,7 +62,7 @@ class SprayModule_autologon(SprayerBase):
             else:
                 url = f"https://autologon.microsoftazuread-sso.com/{domain}/winauth/trust/2005/usernamemixed?client-request-id={uuid4()}"
 
-            created = datetime.utcnow()
+            created = datetime.now(UTC)
             expires = created + timedelta(minutes=10)
             created = created.strftime("%Y-%m-%dT%H:%M:%S.001Z")
             expires = expires.strftime("%Y-%m-%dT%H:%M:%S.001Z")

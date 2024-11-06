@@ -31,6 +31,13 @@ class SprayModule_reporting(SprayerBase):
             Exception: generic handler so we can successfully fail without
               crashing the run
         """
+        # https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-basic-authentication-exchange-online
+        logging.error(
+            f"The Reporting module has been deprecated due to Microsoft's deprecation of BasicAuth"
+        )
+        self.exit = True
+        return self.shutdown()
+
         try:
             # Build email if not already built
             email = self.HELPER.check_email(user, domain)
@@ -38,7 +45,7 @@ class SprayModule_reporting(SprayerBase):
             # Write the tested user
             tested = f"{email}:{password}"
             if self.writer:
-                self.tested_writer.write(tested)
+                self.tested_writer.write_verbose(tested)
 
             time.sleep(0.250)
 
