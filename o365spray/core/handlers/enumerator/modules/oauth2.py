@@ -48,7 +48,7 @@ class EnumerateModule_oauth2(EnumeratorBase):
             # tested = f"{user} -> {email}" if user != email else email
             tested = f"{email}:{password} | {client_id} | {resource}"
             if self.writer:
-                self.tested_writer.write(tested)
+                self.tested_writer.write_verbose(tested)
 
             time.sleep(0.250)
 

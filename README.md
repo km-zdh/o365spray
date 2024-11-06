@@ -40,7 +40,7 @@ Perform password spraying against a given domain:<br>
 ```
 usage: o365spray [flags]
 
-o365spray | Microsoft O365 User Enumerator and Password Sprayer -- v3.1.20240830
+o365spray | Microsoft O365 User Enumerator and Password Sprayer -- v3.1.20241105
 
 options:
   -h, --help            show this help message and exit

@@ -24,13 +24,22 @@ class ThreadWriter(object):
         self.out_file = open(self.output_file, "a")
 
     def write(self, data: str):
-        """Write data to file
+        """Write data to a file
+
+        Arguments:
+            data: data to write to file
+        """
+        self.out_file.write(f"{data}\n")
+
+    def write_verbose(self, data: str):
+        """Write verbose data to a file
+        Include timestamp for telemetry
 
         Arguments:
             data: data to write to file
         """
         ts = datetime.fromtimestamp(time()).strftime("%Y-%m-%d %H:%M:%S")
-        self.out_file.write(f"[{ts}] {data}\n")
+        self.out_file.write(f"{ts} | {data}\n")
 
     def flush(self):
         """Flush the file buffer"""

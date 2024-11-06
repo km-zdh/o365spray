@@ -41,7 +41,7 @@ class EnumerateModule_onedrive(EnumeratorBase):
             # Write the tested user
             tested = f"{orig_user} -> {user}" if user != orig_user else user
             if self.writer:
-                self.tested_writer.write(tested)
+                self.tested_writer.write_verbose(tested)
 
             time.sleep(0.250)
 
@@ -86,14 +86,17 @@ class EnumerateModule_onedrive(EnumeratorBase):
                 jitter=self.jitter,
             )
 
-            # It appears that valid browser User-Agents will return a 302 redirect
-            # instead of 401/403 on valid accounts
             status = response.status_code
-            if status in [302, 401, 403]:
+            if status in [401, 403]:
                 if self.writer:
                     self.valid_writer.write(user)
                 self.VALID_ACCOUNTS.append(user)
                 logging.info(f"[{text_colors.OKGREEN}VALID{text_colors.ENDC}] {user}")
+
+            elif status in [301, 302, 200]:
+                logging.info(
+                    f"[{text_colors.WARNING}UNKNOWN{text_colors.ENDC}] {user} | Account renamed"
+                )
 
             # Since 404 responses are invalid and everything else is considered
             # 'unknown', we will just handle them all as 'invalid'

@@ -42,7 +42,7 @@ class EnumerateModule_office(EnumeratorBase):
             # Write the tested user
             tested = f"{user} -> {email}" if user != email else email
             if self.writer:
-                self.tested_writer.write(tested)
+                self.tested_writer.write_verbose(tested)
 
             time.sleep(0.250)
 
